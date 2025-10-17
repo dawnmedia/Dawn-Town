@@ -9,18 +9,55 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Custom Stylesheet -->
+  <!-- Custom Stylesheet -->
     <style>
-        /* Set body and root to full height to allow full-screen background */
-        body, #root {
-            min-height: 100dvh;
+        /* Remove default browser margins */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
         }
 
-        /* Container for the main content with the background image */
-        .main-container {
-            min-height: 100dvh;
+        /* Apply the background directly to the body for a robust full-screen effect */
+        body {
+            /* Set the background image */
             background-image: url('https://images.pexels.com/photos/28378380/pexels-photo-28378380.jpeg');
             background-size: cover;
             background-position: center;
+            /* This is the key: it fixes the background to the viewport, ignoring browser UI changes */
+            background-attachment: fixed;
+            
+            /* Ensure body takes up at least the full dynamic height */
+            min-height: 100vh; /* Fallback for older browsers */
+            min-height: 100dvh;
+
+            /* Use flexbox to center the content */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            /* Set a base font for consistency */
+            font-family: sans-serif;
+            position: relative;
+        }
+
+        /* Dark overlay using a pseudo-element for better structure */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        /* Ensure the React root is above the overlay */
+        #root {
+            position: relative;
+            z-index: 2;
+            width: 100%;
         }
     </style>
 </head>
